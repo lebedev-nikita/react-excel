@@ -1,5 +1,3 @@
-import { describe, test, expect } from "vitest";
-
 import {
   ExcelDocument,
   renderToConsole,
@@ -20,21 +18,36 @@ renderToConsole(
           <TableCell>C</TableCell>
           <TableCell>D</TableCell>
         </TableRow>
+        <TableRow>
+          {false != false && <TableCell>E</TableCell>}
+          {false == false && <TableCell>F</TableCell>}
+          <TableCell>G</TableCell>
+          <TableCell>H</TableCell>
+        </TableRow>
       </TableHead>
-      <TableBody>
-        <TableRow>
-          <TableCell>a</TableCell>
-          <TableCell>b</TableCell>
-          <TableCell>c</TableCell>
-          <TableCell>d</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>efgh</TableCell>
-          <TableCell>efgh</TableCell>
-          <TableCell>efgh</TableCell>
-          <TableCell>efgh</TableCell>
-        </TableRow>
-      </TableBody>
+      <TableBody
+        maxRows={10}
+        data={tuples(4)}
+        render={(data) => (
+          <TableRow>
+            <TableCell>{data[0]}</TableCell>
+            <TableCell>{data[1]}</TableCell>
+            <TableCell>{data[2]}</TableCell>
+            <TableCell>{data[3]}</TableCell>
+          </TableRow>
+        )}
+      />
     </Spreadsheet>
   </ExcelDocument>,
 );
+
+async function* tuples(n: number) {
+  let i = 0;
+  while (true) {
+    const ret: number[] = [];
+    while (ret.length < n) {
+      ret.push(i++);
+    }
+    yield ret;
+  }
+}
