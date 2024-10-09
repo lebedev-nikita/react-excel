@@ -1,6 +1,6 @@
 import {
   ExcelDocument,
-  renderToConsole,
+  renderToFile,
   Spreadsheet,
   TableBody,
   TableCell,
@@ -8,17 +8,21 @@ import {
   TableRow,
 } from "../src/index";
 
-renderToConsole(
+renderToFile(
+  "files/abcd.xlsx",
   <ExcelDocument>
-    <Spreadsheet>
+    <Spreadsheet name="sheet 1" maxRows={10}>
       <TableHead>
-        <TableRow>
+        <TableRow
+          font={{ name: "Arial Black" }}
+          alignment={{ vertical: "middle", horizontal: "center" }}
+        >
           <TableCell>A</TableCell>
           <TableCell>B</TableCell>
           <TableCell>C</TableCell>
           <TableCell>D</TableCell>
         </TableRow>
-        <TableRow>
+        <TableRow font={{ name: "Arial Black" }}>
           {false != false && <TableCell>E</TableCell>}
           {false == false && <TableCell>F</TableCell>}
           <TableCell>G</TableCell>
@@ -26,7 +30,6 @@ renderToConsole(
         </TableRow>
       </TableHead>
       <TableBody
-        maxRows={10}
         data={tuples(4)}
         render={(data) => (
           <TableRow>
